@@ -1,20 +1,23 @@
-
-name: Compile C++
+name: Build C++
 
 on:
   push:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Ambil kode
         uses: actions/checkout@v4
 
       - name: Compile program
-        run: g++projek.cpp -o main
+        run: g++ main.cpp -o main.exe
 
-      - name: Jalankan program
-        run: ./main
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: program-exe
+          path: main.exe
